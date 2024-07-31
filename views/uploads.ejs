@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Files - GROWTHzone</title>
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="/">GROWTHzone</a></h1>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/growthzone">Growthzone</a>
+                <a href="/about">About Us</a>
+            </nav>
+        </div>
+    </header>
+    <div class="container">
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" accept="image/*,video/*">
+            <button type="submit">Upload</button>
+        </form>
+        <h2>Uploaded Files:</h2>
+        <div class="uploaded-files">
+            <% files.forEach(file => { %>
+                <div class="media-item">
+                    <% if (/\.(jpe?g|png|gif)$/i.test(file)) { %>
+                        <img src="/uploads/<%= file %>" alt="<%= file %>">
+                    <% } else if (/\.(mp4|mov|avi)$/i.test(file)) { %>
+                        <video controls>
+                            <source src="/uploads/<%= file %>" type="video/<%= file.split('.').pop() %>">
+                            Your browser does not support the video tag.
+                        </video>
+                    <% } %>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</body>
+</html>
